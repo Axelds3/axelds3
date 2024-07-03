@@ -1,0 +1,68 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node-postgres
+{
+  "name": "Expressjs & MariaDB",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/jshint:2": {},
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    },
+		"ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "npm install",
+  "postCreateCommand": "",
+  "postAttachCommand": {
+    "server": "npm start"
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "index.js"
+      ]
+    },
+    "vscode": {
+      "extensions": [
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-mysql"
+      ]
+    },
+    "settings": {
+      "sqltools.connections": [
+        {
+          "mysqlOptions": {
+            "authProtocol": "default",
+            "enableSsl": "Disabled"
+          },
+          "previewLimit": 50,
+          "server": "localhost",
+          "port": 3306,
+          "driver": "MariaDB",
+          "name": "maria db",
+          "database": "mariadb",
+          "username": "mariadb",
+          "password": "mariadb"
+        }
+      ]
+    }
+  },
+  "portsAttributes": {
+    "3000": {
+      "label": "Application"
+    }
+  },
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // This can be used to network with other containers or with the host.
+  "forwardPorts": [
+    3000,
+    3306
+  ]
+}
